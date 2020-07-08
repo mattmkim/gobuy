@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"strconv"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -27,7 +26,7 @@ func Start() {
 		http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	}()
 
-	port, _ := strconv.Atoi(os.Getenv("PORT"))
+	// port, _ := strconv.Atoi(os.Getenv("PORT"))
 
 	// var opts []selenium.ServiceOption
 	// service, err := selenium.NewChromeDriverService(os.Getenv("CHROMEDRIVER_PATH"), port, opts...)
