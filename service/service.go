@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"gobuy/uniqlo"
+	"net/http"
 	"os"
 	"os/signal"
 	"sync"
@@ -22,8 +23,12 @@ func Start() {
 	f := config.NewINIFile("config.ini")
 	config, err := f.Load()
 
+	go func() {
+		http.ListenAndServe(os.Getenv("PORT"), nil)
+	}()
+
 	caps := selenium.Capabilities{"browserName": "chrome"}
-	wd, err := selenium.NewRemote(caps, "https://pure-headland-22862.herokuapp.com/wd/hub")
+	wd, err := selenium.NewRemote(caps, "http://127.0.0.1:4444/wd/hub")
 	if err != nil {
 		log.Error(err.Error())
 	}

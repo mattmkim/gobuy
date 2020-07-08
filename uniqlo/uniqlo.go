@@ -47,7 +47,7 @@ func TestSpawn(wd selenium.WebDriver, config map[string]string) (*T, error) {
 	}
 
 	cron := cron.New()
-	_, err := cron.AddFunc("*/1 * * * *", s.TestCheck)
+	_, err := cron.AddFunc("*/3 * * * *", s.TestCheck)
 	if err != nil {
 		log.Error("couldn't add function to cron job")
 		return s, err
