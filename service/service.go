@@ -23,13 +23,11 @@ func Start() {
 	f := config.NewINIFile("config.ini")
 	config, err := f.Load()
 
-	fmt.Println("hello")
-	log.Info("fadfad")
-
 	fmt.Println(os.Getenv("PORT"))
 
 	go func() {
-		http.ListenAndServe(os.Getenv("PORT"), nil)
+		http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+		fmt.Println("server up")
 	}()
 
 	caps := selenium.Capabilities{"browserName": "chrome"}
