@@ -5,6 +5,7 @@ import (
 	"gobuy/uniqlo"
 	"net/http"
 	"os"
+	"time"
 )
 
 type T struct {
@@ -20,8 +21,11 @@ func Start() {
 
 	go func() {
 		http.ListenAndServe(":"+os.Getenv("PORT"), nil)
-		fmt.Println("server up")
 	}()
+
+	fmt.Println("server up")
+
+	time.Sleep(time.Minute * 10)
 
 	// caps := selenium.Capabilities{"browserName": "chrome"}
 	// wd, err := selenium.NewRemote(caps, "https://pure-headland-22862.herokuapp.com/")
