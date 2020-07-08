@@ -5,6 +5,7 @@ import (
 	"gobuy/uniqlo"
 	"net/http"
 	"os"
+	"os/exec"
 	"strconv"
 	"time"
 
@@ -30,16 +31,22 @@ func Start() {
 
 	var opts []selenium.ServiceOption
 	service, err := selenium.NewChromeDriverService(os.Getenv("CHROMEDRIVER_PATH"), port, opts...)
+
+	if err != nil {
+		fmt.Printf("Error starting the ChromeDriver server: %v", err)
+	}
 	defer service.Stop()
 
 	caps := selenium.Capabilities{"browserName": "chrome"}
 	caps.AddChrome(chrome.Capabilities{Path: os.Getenv("GOOGLE_CHROME_BIN")})
 
-	hostname, _ := os.Hostname()
-	remoteURL := "https://" + hostname + os.Getenv("PORT") + "/wd/hub"
-	fmt.Println(remoteURL)
+	path, err := exec.LookPath(os.Getenv("CHROMEDRIVER_PATH"))
+	if err != nil {
+		fmt.Println("Browser binary path not found")
+	}
 
-	wd, err := selenium.NewRemote(caps, remoteURL)
+	fmt.Println(path)
+	wd, err := selenium.NewRemote(caps, "")
 	if err != nil {
 		log.Error(err.Error())
 	}
