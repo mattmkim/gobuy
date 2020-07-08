@@ -44,8 +44,7 @@ func Start() {
 		fmt.Println("Browser binary path not found")
 	}
 
-	fmt.Println(path)
-	wd, err := selenium.NewRemote(caps, "")
+	wd, err := selenium.NewRemote(caps, path)
 	if err != nil {
 		log.Error(err.Error())
 	}
