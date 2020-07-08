@@ -23,6 +23,11 @@ func Start() {
 	f := config.NewINIFile("config.ini")
 	config, err := f.Load()
 
+	fmt.Println("hello")
+	log.Info("fadfad")
+
+	fmt.Println(os.Getenv("PORT"))
+
 	go func() {
 		http.ListenAndServe(os.Getenv("PORT"), nil)
 	}()
