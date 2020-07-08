@@ -5,7 +5,12 @@ import (
 	"gobuy/uniqlo"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
+
+	log "github.com/sirupsen/logrus"
+	"github.com/tebeka/selenium"
+	"github.com/tebeka/selenium/chrome"
 )
 
 type T struct {
@@ -17,23 +22,31 @@ func Start() {
 	// f := config.NewINIFile("config.ini")
 	// config, err := f.Load()
 
-	fmt.Println(os.Getenv("PORT"))
-
 	go func() {
 		http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 	}()
 
-	fmt.Println("server up")
+	port, _ := strconv.Atoi(os.Getenv("PORT"))
+
+	var opts []selenium.ServiceOption
+	service, err := selenium.NewChromeDriverService(os.Getenv("CHROMEDRIVER_PATH"), port, opts...)
+	defer service.Stop()
+
+	caps := selenium.Capabilities{"browserName": "chrome"}
+	caps.AddChrome(chrome.Capabilities{Path: os.Getenv("GOOGLE_CHROME_BIN")})
+
+	hostname, _ := os.Hostname()
+	remoteURL := "https://" + hostname + os.Getenv("PORT") + "/wd/hub"
+	fmt.Println(remoteURL)
+
+	wd, err := selenium.NewRemote(caps, remoteURL)
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	defer wd.Quit()
 
 	time.Sleep(time.Minute * 10)
-
-	// caps := selenium.Capabilities{"browserName": "chrome"}
-	// wd, err := selenium.NewRemote(caps, "https://pure-headland-22862.herokuapp.com/")
-	// if err != nil {
-	// 	log.Error(err.Error())
-	// }
-
-	// defer wd.Quit()
 
 	// if s.uniqlo, err = uniqlo.TestSpawn(wd, config); err != nil {
 	// 	log.Error("couldn't start uniqlo service")
