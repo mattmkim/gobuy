@@ -29,13 +29,13 @@ func Start() {
 
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 
-	var opts []selenium.ServiceOption
-	service, err := selenium.NewChromeDriverService(os.Getenv("CHROMEDRIVER_PATH"), port, opts...)
+	// var opts []selenium.ServiceOption
+	// service, err := selenium.NewChromeDriverService(os.Getenv("CHROMEDRIVER_PATH"), port, opts...)
 
-	if err != nil {
-		fmt.Printf("Error starting the ChromeDriver server: %v", err)
-	}
-	defer service.Stop()
+	// if err != nil {
+	// 	fmt.Printf("Error starting the ChromeDriver server: %v", err)
+	// }
+	// defer service.Stop()
 
 	caps := selenium.Capabilities{"browserName": "chrome"}
 	caps.AddChrome(chrome.Capabilities{Path: os.Getenv("GOOGLE_CHROME_BIN")})
