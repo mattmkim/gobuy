@@ -28,7 +28,7 @@ func Start() {
 	}()
 
 	caps := selenium.Capabilities{"browserName": "chrome"}
-	wd, err := selenium.NewRemote(caps, "http://127.0.0.1:4444/wd/hub")
+	wd, err := selenium.NewRemote(caps, "https://pure-headland-22862.herokuapp.com/")
 	if err != nil {
 		log.Error(err.Error())
 	}
