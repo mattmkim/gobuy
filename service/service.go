@@ -5,8 +5,6 @@ import (
 	"gobuy/uniqlo"
 	"net/http"
 	"os"
-
-	"github.com/zpatrick/go-config"
 )
 
 type T struct {
@@ -14,9 +12,9 @@ type T struct {
 }
 
 func Start() {
-	var s T
-	f := config.NewINIFile("config.ini")
-	config, err := f.Load()
+	//var s T
+	// f := config.NewINIFile("config.ini")
+	// config, err := f.Load()
 
 	fmt.Println(os.Getenv("PORT"))
 
