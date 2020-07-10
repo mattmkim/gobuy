@@ -1,0 +1,4 @@
+build:
+  docker:
+    uniqgo: Dockerfile.uniqgo
+    selenium: Dockerfile.selenium
