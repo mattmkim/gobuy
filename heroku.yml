@@ -2,3 +2,5 @@ build:
   docker:
     uniqgo: uniqlo/Dockerfile.uniqgo
     selenium: service/Dockerfile.selenium
+run:
+  uniqgo: cmd/uniqgo
