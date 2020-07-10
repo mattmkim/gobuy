@@ -1,4 +1,4 @@
 build:
   docker:
-    uniqgo: Dockerfile.uniqgo
-    selenium: Dockerfile.selenium
+    uniqgo: uniqgo/Dockerfile.uniqgo
+    selenium: service/Dockerfile.selenium
