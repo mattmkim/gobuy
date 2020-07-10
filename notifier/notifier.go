@@ -2,18 +2,18 @@ package notifier
 
 import (
 	"fmt"
-	"log"
 	"net/smtp"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func Notify(config map[string]string, service string, message string) {
-	to := config["notifier.to"]
-	from := config["notifier.from"]
-	password := config["notifier.password"]
 	msg := fmt.Sprintf("Subject: Alert from %s Service\n\n %s", service, message)
-	status := smtp.SendMail("smtp.gmail.com:587", smtp.PlainAuth("", from, password, "smtp.gmail.com"), from, []string{to}, []byte(msg))
-	if status != nil {
-		log.Printf("Error from SMTP Server: %s", status)
+	err := smtp.SendMail("smtp.gmail.com:587",
+		smtp.PlainAuth("", config["notifier.from"], config["notifier.password"], "smtp.gmail.com"), config["notifier.from"], []string{config["notifier.to"]}, []byte(msg))
+
+	if err != nil {
+		log.Printf("Error from SMTP Server: %s", err)
 	}
 	log.Print("Email Sent Successfully")
 }

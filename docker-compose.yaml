@@ -4,3 +4,9 @@ services:
     image: selenium/standalone-chrome
     ports: 
       - 4444:4444
+  uniqgo:
+    image: golang:1.6.1-alpine
+    volumes:
+      - .:/go/uniqgo
+    working_dir: /go/uniqgo
+    command: cmd/uniqgo
