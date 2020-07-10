@@ -1,3 +1,5 @@
 FROM selenium/standalone-chrome
 
 EXPOSE 4444/tcp
+
+ENTRYPOINT ["./entry_point.sh"]

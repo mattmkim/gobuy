@@ -2,7 +2,5 @@ FROM golang:1.6.1-alpine
 
 WORKDIR /go/uniqgo
 
-VOLUME [".:/go/uniqgo"]
-
-CMD ["cmd/uniqgo"]
+ENTRYPOINT ["cmd/uniqgo"]
 
