@@ -1,5 +1,5 @@
 FROM selenium/standalone-chrome
 
-EXPOSE 4444/tcp
+CMD ["./entry_point.sh"]
 
-RUN ./entry_point.sh
+EXPOSE 4444/tcp
