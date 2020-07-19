@@ -1,7 +1,8 @@
 package main
 
-import "gobuy/service"
+import "uniqgo/service"
 
 func main() {
+	// calls Start() in service.go
 	service.Start()
 }

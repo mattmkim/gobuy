@@ -2,12 +2,12 @@ package service
 
 import (
 	"fmt"
-	"gobuy/uniqlo"
 	"os"
 	"os/signal"
 	"sync"
 	"syscall"
 	"time"
+	"uniqgo/uniqlo"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/tebeka/selenium"
@@ -24,8 +24,10 @@ func Start() {
 	config, err := f.Load()
 
 	caps := selenium.Capabilities{"browserName": "chrome"}
+	// make sure the Selenium server starts up before trying to connect
 	time.Sleep(time.Second * 5)
-	wd, err := selenium.NewRemote(caps, "http://host.docker.internal:4444/wd/hub")
+	// IP address refers to public IP of EC2 instance
+	wd, err := selenium.NewRemote(caps, "http://54.158.213.13:4444/wd/hub")
 	if err != nil {
 		log.Error(err.Error())
 	}
@@ -33,10 +35,9 @@ func Start() {
 	defer wd.Quit()
 
 	if s.uniqlo, err = uniqlo.Spawn(wd, config); err != nil {
-		log.Error("couldn't start uniqlo service")
+		log.Error("couldn't spawn uniqlo")
 	}
 
-	// block until OS signal received
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGTERM)
 
