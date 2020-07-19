@@ -1,3 +1,3 @@
 # uniqgo
 
-A golang service to (for now) notify me when Uniqlo has Gudetama Graphic Tees in stock.
+A golang service to notify me when Uniqlo has Gudetama Graphic Tees in stock.
